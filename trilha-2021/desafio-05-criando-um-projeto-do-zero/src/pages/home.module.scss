@@ -1,1 +1,44 @@
-// TODO
+.posts {
+  a {
+    display: block;
+    margin-top: 2rem;
+
+    & + a {
+      margin-top: 3rem;
+    }
+
+    strong {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--white);
+
+      transition: color 0.2s;
+    }
+
+    &:hover strong {
+      color: var(--purple-100);
+    }
+
+    p {
+      font-size: 1.125rem;
+      color: var(--gray-200);
+      margin-top: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+
+      li {
+        font-size: 0.875rem;
+        text-transform: capitalize;
+
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  }
+}
