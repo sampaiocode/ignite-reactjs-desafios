@@ -11,6 +11,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import { useState } from 'react';
 
 interface Post {
   uid?: string;
@@ -32,6 +33,44 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps) {
+  const [posts, setPosts] = useState<Post[]>(postsPagination.results);
+
+  const [nextPage, setNextPage] = useState(postsPagination.next_page);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  async function handleLoadingMorePosts() {
+    if (currentPage != 1 && nextPage === null) {
+      return;
+    }
+
+    const postsResults = await fetch(`${nextPage}`).then(response =>
+      response.json()
+    );
+
+    setNextPage(postsResults.next_page);
+    setCurrentPage(postsResults.page);
+
+    const newPosts = postsResults.results.map(post => {
+      return {
+        slug: post.uid,
+        first_publication_date: format(
+          new Date(post.first_publication_date),
+          'dd MMM yyyy',
+          {
+            locale: ptBR,
+          }
+        ),
+        data: {
+          title: post.data.title,
+          subtitle: post.data.subtitle,
+          author: post.data.author,
+        },
+      };
+    });
+
+    setPosts([...posts, ...newPosts]);
+  }
+
   return (
     <>
       <Head>
@@ -42,7 +81,7 @@ export default function Home({ postsPagination }: HomeProps) {
         <Header />
 
         <div className={styles.posts}>
-          {postsPagination.results.map(post => (
+          {posts.map(post => (
             <Link href={`/post/${post.uid}`} key={post.uid}>
               <a>
                 <strong>{post.data.title}</strong>
@@ -61,6 +100,12 @@ export default function Home({ postsPagination }: HomeProps) {
               </a>
             </Link>
           ))}
+
+          {nextPage && (
+            <button onClick={handleLoadingMorePosts}>
+              Carregar mais posts
+            </button>
+          )}
         </div>
       </main>
     </>
@@ -71,7 +116,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient({});
   const postsResponse = await prismic.getByType('posts', {
     fetch: ['posts.title', 'posts.subtitle', 'posts.author'],
-    pageSize: 2,
+    pageSize: 1,
   });
 
   const posts = postsResponse.results.map(post => {
