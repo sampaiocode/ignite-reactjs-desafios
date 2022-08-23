@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import { getPrismicClient } from '../services/prismic';
 import { FiCalendar, FiUser } from 'react-icons/fi';
+import { useState } from 'react';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -11,7 +12,6 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import { useState } from 'react';
 
 interface Post {
   uid?: string;
@@ -33,8 +33,20 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps) {
-  const [posts, setPosts] = useState<Post[]>(postsPagination.results);
+  const formatedPost = postsPagination.results.map(post => {
+    return {
+      ...post,
+      first_publication_date: format(
+        new Date(post.first_publication_date),
+        'dd MMM yyyy',
+        {
+          locale: ptBR,
+        }
+      ),
+    };
+  });
 
+  const [posts, setPosts] = useState<Post[]>(formatedPost);
   const [nextPage, setNextPage] = useState(postsPagination.next_page);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -52,7 +64,7 @@ export default function Home({ postsPagination }: HomeProps) {
 
     const newPosts = postsResults.results.map(post => {
       return {
-        slug: post.uid,
+        uid: post.uid,
         first_publication_date: format(
           new Date(post.first_publication_date),
           'dd MMM yyyy',
@@ -121,14 +133,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const posts = postsResponse.results.map(post => {
     return {
-      slug: post.uid,
-      first_publication_date: format(
-        new Date(post.first_publication_date),
-        'dd MMM yyyy',
-        {
-          locale: ptBR,
-        }
-      ),
+      uid: post.uid,
+      first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
