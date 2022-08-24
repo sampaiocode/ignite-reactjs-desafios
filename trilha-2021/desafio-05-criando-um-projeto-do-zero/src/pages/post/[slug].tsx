@@ -1,14 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { format } from 'date-fns';
+import { useRouter } from 'next/router';
+import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { getPrismicClient } from '../../services/prismic';
+import { format } from 'date-fns';
 import { RichText } from 'prismic-dom';
 
 import Header from '../../components/Header';
+import Head from 'next/head';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
-import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 
 interface Post {
   first_publication_date: string | null;
@@ -32,6 +34,12 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <h1>Carregando...</h1>;
+  }
+
   const formatedAt = format(
     new Date(post.first_publication_date),
     'dd MMM yyyy',
@@ -53,6 +61,10 @@ export default function Post({ post }: PostProps) {
 
   return (
     <>
+      <Head>
+        <title>{`${post.data.title} | spacetraveling`}</title>
+      </Head>
+
       <Header />
       <img
         src={post.data.banner.url}
@@ -82,7 +94,7 @@ export default function Post({ post }: PostProps) {
 
         {post.data.content.map(content => {
           return (
-            <article className={styles.postContent}>
+            <article className={styles.postContent} key={content.heading}>
               <h2>{content.heading}</h2>
               <div
                 dangerouslySetInnerHTML={{
@@ -97,7 +109,7 @@ export default function Post({ post }: PostProps) {
   );
 }
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const prismic = getPrismicClient({});
   const posts = await prismic.getByType('posts');
 
