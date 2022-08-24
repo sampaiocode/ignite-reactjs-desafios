@@ -8,6 +8,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
+import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 
 interface Post {
   first_publication_date: string | null;
@@ -31,9 +32,67 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
+  const formatedAt = format(
+    new Date(post.first_publication_date),
+    'dd MMM yyyy',
+    {
+      locale: ptBR,
+    }
+  );
+
+  const totalWords = post.data.content.reduce((total, content) => {
+    total += content.heading.split(' ').length;
+
+    const words = content.body.map(item => item.text.split(' ').length);
+    words.map(word => (total += word));
+
+    return total;
+  }, 0);
+
+  const readTime = Math.ceil(totalWords / 200);
+
   return (
     <>
       <Header />
+      <img
+        src={post.data.banner.url}
+        className={styles.banner}
+        alt="Banner do post"
+      />
+
+      <main className={commonStyles.container}>
+        <div className={styles.postInformation}>
+          <h1>{post.data.title}</h1>
+
+          <ul>
+            <li>
+              <FiCalendar size={20} />
+              {formatedAt}
+            </li>
+            <li>
+              <FiUser size={20} />
+              {post.data.author}
+            </li>
+            <li>
+              <FiClock size={20} />
+              {`${readTime} min`}
+            </li>
+          </ul>
+        </div>
+
+        {post.data.content.map(content => {
+          return (
+            <article className={styles.postContent}>
+              <h2>{content.heading}</h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: RichText.asHtml(content.body),
+                }}
+              />
+            </article>
+          );
+        })}
+      </main>
     </>
   );
 }
@@ -69,7 +128,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       subtitle: response.data.subtitle,
       author: response.data.author,
       banner: {
-        url: response.data.banner,
+        url: response.data.banner.url,
       },
       content: response.data.content.map(content => {
         return {
