@@ -1,4 +1,16 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Icon,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Text
+} from '@chakra-ui/react';
+import { RiInformationLine } from 'react-icons/ri';
 import { ButtonInfo } from './ButtonInfo';
 
 export function Infos() {
@@ -26,10 +38,14 @@ export function Infos() {
         <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
           27
         </Heading>
-        <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
-          cidades +100
+
+        <Flex align="center" gap="5px">
+          <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
+            cidades +100
+          </Text>
+
           <ButtonInfo />
-        </Text>
+        </Flex>
       </Flex>
     </Flex>
   );

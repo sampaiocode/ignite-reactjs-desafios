@@ -3,6 +3,7 @@ import { Flex, Grid, Text } from '@chakra-ui/react';
 import { ContinentBanner } from '../../components/ContinentBanner';
 import { Header } from '../../components/Header';
 import { Infos } from '../../components/Infos';
+import { Cities } from '../../components/Cities';
 
 export default function Continent() {
   return (
@@ -10,7 +11,7 @@ export default function Continent() {
       <Header />
       <ContinentBanner />
 
-      <Flex maxW="1160px" mx="auto" px="1rem" direction="column">
+      <Flex maxW="1160px" mx="auto" mb="10" px="1rem" direction="column">
         <Grid templateColumns="1.2fr 1fr" my="20" gap={20}>
           <Text fontSize="2xl" color="gray.600" textAlign="justify">
             A Europa é, por convenção, um dos seis continentes do mundo. Compreendendo a península
@@ -20,6 +21,8 @@ export default function Continent() {
 
           <Infos />
         </Grid>
+
+        <Cities />
       </Flex>
     </Flex>
   );
