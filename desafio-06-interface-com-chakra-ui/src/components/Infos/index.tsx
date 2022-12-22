@@ -1,24 +1,14 @@
-import {
-  Flex,
-  Heading,
-  Icon,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverTrigger,
-  Text
-} from '@chakra-ui/react';
-import { RiInformationLine } from 'react-icons/ri';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 import { ButtonInfo } from './ButtonInfo';
 
-export function Infos() {
+import { ContinentProps } from '../../pages/continent/[slug]';
+
+export function Infos({ continent }: ContinentProps) {
   return (
     <Flex align="center" justify="space-between">
       <Flex direction="column" align="center">
         <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
-          50
+          {continent.countries}
         </Heading>
         <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
           países
@@ -27,7 +17,7 @@ export function Infos() {
 
       <Flex direction="column" align="center">
         <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
-          60
+          {continent.languages}
         </Heading>
         <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
           línguas
@@ -36,7 +26,7 @@ export function Infos() {
 
       <Flex direction="column" align="center">
         <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
-          27
+          {continent.cities}
         </Heading>
 
         <Flex align="center" gap="5px">

@@ -6,7 +6,7 @@ export function Banner() {
       <Flex w="100%" px="36" mx="auto" align="center" justify="space-between">
         <div>
           <Heading color="gray.50" fontWeight="medium" fontSize="4xl" lineHeight="">
-            5 Continentes, <br /> infinitas possibilidades.
+            3 Continentes, <br /> infinitas possibilidades.
           </Heading>
           <Text color="gray.100" fontSize="xl" mt="5" maxW="524px">
             Chegou a hora de tirar do papel a viagem que você sempre sonhou.

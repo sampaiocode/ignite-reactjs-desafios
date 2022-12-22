@@ -5,8 +5,19 @@ import { Header } from '../components/Header';
 import { Banner } from '../components/Banner';
 import { TravelType } from '../components/TravelType';
 import { Slider } from '../components/Slider';
+import { GetStaticProps } from 'next';
+import { getPrismicClient } from '../services/prismic';
 
-export default function Home() {
+export interface HomeProps {
+  continents: {
+    slug: string;
+    title: string;
+    summary: string;
+    image: string;
+  }[];
+}
+
+export default function Home({ continents }: HomeProps) {
   return (
     <>
       <Head>
@@ -52,9 +63,30 @@ export default function Home() {
             Vamos nessa? <br /> Então escolha seu continente
           </Heading>
 
-          <Slider />
+          <Slider continents={continents} />
         </main>
       </Flex>
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const prismic = getPrismicClient();
+  const response = await prismic.getByType('continent');
+
+  const continents = response.results.map(continent => {
+    return {
+      slug: continent.uid,
+      title: continent.data.title,
+      summary: continent.data.summary,
+      image: continent.data.slide_image.url
+    };
+  });
+
+  return {
+    props: {
+      continents
+    },
+    revalidate: 1800 // 30 minutes
+  };
+};
