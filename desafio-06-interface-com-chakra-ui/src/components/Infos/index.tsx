@@ -1,6 +1,6 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
-import { ButtonInfo } from './ButtonInfo';
+import { Flex, Heading, Text, Icon, Tooltip } from '@chakra-ui/react';
 
+import { RiInformationLine } from 'react-icons/ri';
 import { ContinentProps } from '../../pages/continent/[slug]';
 
 export function Infos({ continent }: ContinentProps) {
@@ -34,7 +34,16 @@ export function Infos({ continent }: ContinentProps) {
             cidades +100
           </Text>
 
-          <ButtonInfo />
+          <Tooltip
+            hasArrow
+            label="As cidades que estão entre as 100 mais visitadas do mundo."
+            bg="gray.600"
+            color="yellow.400"
+          >
+            <span>
+              <Icon as={RiInformationLine} w="16px" h="16px" cursor="pointer" color="gray.300" />
+            </span>
+          </Tooltip>
         </Flex>
       </Flex>
     </Flex>

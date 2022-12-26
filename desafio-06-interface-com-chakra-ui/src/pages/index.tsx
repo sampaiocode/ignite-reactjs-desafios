@@ -34,11 +34,11 @@ export default function Home({ continents }: HomeProps) {
             maxW="1160px"
             w="100%"
             mx="auto"
-            mt="32"
-            templateColumns="repeat(5, 1fr)"
+            mt={['9', '28']}
+            templateColumns={['1fr 1fr', '1fr 1fr', '1fr 1fr', 'repeat(5, 1fr)']}
             justifyContent="space-between"
             alignItems="center"
-            gap="5"
+            gap={[1, 5]}
           >
             <GridItem>
               <TravelType iconName="cocktail" text="vida noturna" />
@@ -52,14 +52,14 @@ export default function Home({ continents }: HomeProps) {
             <GridItem>
               <TravelType iconName="museum" text="clássico" />
             </GridItem>
-            <GridItem>
+            <GridItem colSpan={[2, 2, 2, 1]}>
               <TravelType iconName="earth" text="e mais..." />
             </GridItem>
           </Grid>
 
-          <Box w="90px" h="2px" bg="gray.700" mx="auto" mt="20" />
+          <Box w={['60px', '90px']} h="2px" bg="gray.700" mx="auto" my={['9', '20']} />
 
-          <Heading mt="12" fontSize="4xl" fontWeight="500" textAlign="center">
+          <Heading mt="12" fontSize={['lg', '3xl', '4xl']} fontWeight="500" textAlign="center">
             Vamos nessa? <br /> Então escolha seu continente
           </Heading>
 

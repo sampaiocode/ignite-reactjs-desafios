@@ -9,7 +9,7 @@ export function Header() {
   const offHomePage = asPath !== '/';
 
   return (
-    <Flex as="header" w="100%" h="24" px="1rem" mx="auto" align="center" justify="center">
+    <Flex as="header" w="100%" h={['12', '24']} px="1rem" mx="auto" align="center" justify="center">
       <Grid
         w="100%"
         h="100%"
@@ -28,7 +28,7 @@ export function Header() {
         <Image
           src="/logo.svg"
           alt="Logo do WordlTrip"
-          w="185px"
+          w={['80px', '185px']}
           justifySelf="center"
           gridColumn="2"
         />

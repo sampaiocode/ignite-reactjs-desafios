@@ -8,7 +8,7 @@ import { HomeProps } from '../pages';
 
 export function Slider({ continents }: HomeProps) {
   return (
-    <Flex w="100%" maxW="1240px" h="450px" mx="auto" mb="10" mt="12">
+    <Flex w="100%" maxW="1240px" h={['250px', '450px']} mx="auto" mb={['5', '10']} mt={['5', '12']}>
       <Swiper
         slidesPerView={1}
         modules={[Navigation, Pagination, A11y]}
@@ -34,10 +34,10 @@ export function Slider({ continents }: HomeProps) {
                 justify="center"
               >
                 <Link href={`/continent/${continent.slug}`}>
-                  <Heading fontSize="5xl" fontWeight="bold" color="gray.50">
+                  <Heading fontSize={['2xl', '4xl', '5xl']} fontWeight="bold" color="gray.50">
                     {continent.title}
                   </Heading>
-                  <Text color="gray.100" fontSize="2xl" fontWeight="bold" mt="4">
+                  <Text color="gray.100" fontSize={['sm', '2xl']} fontWeight="bold" mt={['2', '4']}>
                     {continent.summary}
                   </Text>
                 </Link>
