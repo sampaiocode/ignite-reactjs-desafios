@@ -50,8 +50,12 @@ export default function Continent({ continent }: ContinentProps) {
         <ContinentBanner continent={continent} />
 
         <Flex maxW="1160px" mx="auto" mb="10" px="1rem" direction="column">
-          <Grid templateColumns="1.2fr 1fr" my="20" gap={20}>
-            <Text fontSize="2xl" color="gray.600" textAlign="justify">
+          <Grid
+            templateColumns={['1fr', '1fr', '1fr 1fr', '1.2fr 1fr']}
+            my={['8', '20']}
+            gap={[5, 10, 16, 20]}
+          >
+            <Text fontSize={['lg', 'xl', 'xl', '2xl']} color="gray.600" textAlign="justify">
               {continent.description}
             </Text>
 

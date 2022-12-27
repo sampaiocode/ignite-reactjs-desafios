@@ -6,10 +6,16 @@ import { ContinentProps } from '../../pages/continent/[slug]';
 export function Cities({ continent }: ContinentProps) {
   return (
     <>
-      <Heading fontSize="4xl" fontWeight="medium" mb="10">
+      <Heading fontSize={['2xl', '4xl']} fontWeight="medium" mb="10">
         Cidades +100
       </Heading>
-      <Grid templateColumns="repeat(4, 1fr)" alignItems="center" justifyContent="center" gap="45px">
+      <Grid
+        templateColumns={['1fr', '1fr 1fr', 'repeat(3, 1fr)', 'repeat(4, 1fr)']}
+        px={['30px', '0']}
+        alignItems="center"
+        justifyContent="center"
+        gap={['20px', '45px']}
+      >
         {continent.cities100.map(city => (
           <City
             key={city.name}

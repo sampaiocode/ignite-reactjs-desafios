@@ -6,31 +6,35 @@ import { ContinentProps } from '../../pages/continent/[slug]';
 export function Infos({ continent }: ContinentProps) {
   return (
     <Flex align="center" justify="space-between">
-      <Flex direction="column" align="center">
-        <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
+      <Flex direction="column" align={['flex-start', 'flex-start', 'center']}>
+        <Heading fontSize={['2xl', '5xl']} fontWeight="semibold" color="yellow.400">
           {continent.countries}
         </Heading>
-        <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
+        <Text fontSize={['md', '2xl']} fontWeight="semibold" color="gray.600">
           países
         </Text>
       </Flex>
 
-      <Flex direction="column" align="center">
-        <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
+      <Flex direction="column" align={['flex-start', 'flex-start', 'center']}>
+        <Heading fontSize={['2xl', '5xl']} fontWeight="semibold" color="yellow.400">
           {continent.languages}
         </Heading>
-        <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
+        <Text fontSize={['md', '2xl']} fontWeight="semibold" color="gray.600">
           línguas
         </Text>
       </Flex>
 
-      <Flex direction="column" align="center">
-        <Heading fontSize="5xl" fontWeight="semibold" color="yellow.400">
-          {continent.cities}
+      <Flex direction="column" align={['flex-start', 'flex-start', 'center']}>
+        <Heading fontSize={['2xl', '5xl']} fontWeight="semibold" color="yellow.400">
+          {continent.cities < 10 ? (
+            <Text>0{continent.cities}</Text>
+          ) : (
+            <Text>{continent.cities}</Text>
+          )}
         </Heading>
 
         <Flex align="center" gap="5px">
-          <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
+          <Text fontSize={['md', '2xl']} fontWeight="semibold" color="gray.600">
             cidades +100
           </Text>
 
@@ -41,7 +45,13 @@ export function Infos({ continent }: ContinentProps) {
             color="yellow.400"
           >
             <span>
-              <Icon as={RiInformationLine} w="16px" h="16px" cursor="pointer" color="gray.300" />
+              <Icon
+                as={RiInformationLine}
+                w={['10px', '16px']}
+                h={['10px', '16px']}
+                cursor="pointer"
+                color="gray.300"
+              />
             </span>
           </Tooltip>
         </Flex>

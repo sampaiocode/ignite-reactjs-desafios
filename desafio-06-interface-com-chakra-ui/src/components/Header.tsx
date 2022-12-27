@@ -22,7 +22,7 @@ export function Header() {
       >
         {offHomePage && (
           <Link href="/">
-            <Icon as={RiArrowLeftSLine} fontSize="40" justifySelf="start" />
+            <Icon as={RiArrowLeftSLine} fontSize={[20, 40]} justifySelf="start" />
           </Link>
         )}
         <Image
